@@ -22,76 +22,68 @@ int	key_handler(int keycode, t_fractal *fractal)
 		fractal->offset_y += (0.5 * fractal->zoom);
 	else if (keycode == KEY_DOWN)
 		fractal->offset_y -= (0.5 * fractal->zoom);
-	else if (keycode == KEY_ASTERISK)
-		fractal->iteration_count += 10;
-	else if (keycode == KEY_MINUS)
-		fractal->iteration_count -= 10;
+else if (keycode == KEY_ASTERISK)
+    {
+        fractal->iteration_count += 10;
+        if (fractal->iteration_count > 1000) // Cap maximum iterations
+            fractal->iteration_count = 1000;
+    }
+    else if (keycode == KEY_MINUS)
+    {
+        fractal->iteration_count -= 10;
+        if (fractal->iteration_count < 20) // Set a minimum iteration count
+            fractal->iteration_count = 20;
+    }
 	fractal_render(fractal);
 	return (0);
+}
+
+static void update_zoom_and_iterations(int button, t_fractal *fractal)
+{
+    double zoom_factor;
+
+    if (button == 4) 
+    {
+        zoom_factor = 0.8;
+        fractal->iteration_count += 5;
+        if (fractal->iteration_count > 1000) 
+            fractal->iteration_count = 1000;
+    }
+    else if (button == 5)
+    {
+        zoom_factor = 1.2;
+        fractal->iteration_count -= 5;
+        if (fractal->iteration_count < 50) // Min iteration count
+            fractal->iteration_count = 50;
+    }
+    else
+        return ;
+    fractal->zoom *= zoom_factor;
 }
 
 int	mouse_handler(int button, int x, int y, t_fractal *fractal)
 {
-	(void)x;
-	(void)y;
-	if (button == 5)
-	{
-		fractal->zoom *= 0.7;
-	}
-	else if (button == 4)
-	{
-		fractal->zoom *= 1.3;
-	}
-	fractal_render(fractal);
-	return (0);
+    double  old_zoom;
+    double  mouse_re_before_zoom;
+    double  mouse_im_before_zoom;
+
+    
+    old_zoom = fractal->zoom;
+
+    mouse_re_before_zoom = (rescale(x, -2.0, 2.0, WIDTH) * old_zoom) \
+                           + fractal->offset_x;
+    mouse_im_before_zoom = (rescale(y, 2.0, -2.0, HEIGHT) * old_zoom) \
+                           + fractal->offset_y;
+
+
+    update_zoom_and_iterations(button, fractal);
+
+    
+    fractal->offset_x = mouse_re_before_zoom - \
+                         (rescale(x, -2.0, 2.0, WIDTH) * fractal->zoom);
+    fractal->offset_y = mouse_im_before_zoom - \
+                         (rescale(y, 2.0, -2.0, HEIGHT) * fractal->zoom);
+
+    fractal_render(fractal);
+    return (0);
 }
-
-// int key_press(int keycode, t_fractal *fractal)
-// {
-//     if (keycode == MOUSE_UP)
-//         fractal->is_zooming_in = 1;
-//     else if (keycode == MOUSE_DOWN)
-//         fractal->is_zooming_out = 1;
-//     return (0);
-// }
-
-// int key_release(int keycode, t_fractal *fractal)
-// {
-//     if (keycode == MOUSE_UP)
-//         fractal->is_zooming_in = 0;
-//     else if (keycode == MOUSE_DOWN)
-//         fractal->is_zooming_out = 0;
-//     return (0);
-// }
-
-// static void change_color_scheme(int keycode, t_fractal *fractal)
-// {
-// 	if (keycode == KEY_ONE)
-// 	{
-// 		fractal->theme_color.outside_min_color = COLOR_DEEP_NAVY;
-// 		fractal->theme_color.outside_max_color = COLOR_MAJESTIC_BLUE;
-// 		fractal->theme_color.inside_color = COLOR_POWDER_SHIMMER;
-// 	}
-// 	else if (keycode == KEY_TWO)
-// 	{
-// 		fractal->theme_color.outside_min_color = COLOR_INDIGO_BLUE;
-// 		fractal->theme_color.outside_max_color = COLOR_ELECTRIC_BLUE;
-// 		fractal->theme_color.inside_color = COLOR_FROST_BLUE;
-// 	}
-// 	else if (keycode == KEY_THREE)
-// 	{
-// 		fractal->theme_color.outside_min_color = COLOR_MAJESTIC_BLUE;
-// 		fractal->theme_color.outside_max_color = COLOR_ICY_GLIMMER;
-// 		fractal->theme_color.inside_color = COLOR_POWDER_SHIMMER;
-// 	}
-// 	else if (keycode == KEY_FOUR)
-// 	{
-// 		fractal->theme_color.outside_min_color = COLOR_COBALT_BLUE;
-// 		fractal->theme_color.outside_max_color = COLOR_FROST_BLUE;
-// 		fractal->theme_color.inside_color = COLOR_POWDER_SHIMMER;
-// 	}
-// }
-
-
-	// else
-	// 	change_color_scheme(keycode, fractal);
