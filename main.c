@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 12:38:26 by yamohamm          #+#    #+#             */
+/*   Updated: 2025/06/17 15:33:33 by yamohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 int	main(int argc, char **argv)
@@ -19,7 +31,8 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_putstr_fd("Usage: ./fractol [mandelbrot | julia <x> <y>]\n", STDERR_FILENO);
+		ft_putstr_fd("Usage:./fractol [mandelbrot | julia <x> <y>]\n",
+			STDERR_FILENO);
 		return (1);
 	}
 	return (0);

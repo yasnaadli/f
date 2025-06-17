@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helpers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/17 12:37:57 by yamohamm          #+#    #+#             */
+/*   Updated: 2025/06/17 15:28:15 by yamohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fractol.h"
 
@@ -21,10 +32,12 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 void	ft_putstr_fd(char *s, int fd)
 {
 	write(fd, s, ft_strlen(s));
 }
+
 static void	check_overflow(long digit, long result, long sign)
 {
 	if (sign == -1 && result > (2147483648 - digit) / 10)
