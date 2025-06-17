@@ -8,7 +8,7 @@ HEADER = -Iheader -I$(MLX_PATH)
 NAME = fractol
 
 SRCS = handle_events.c fractal_events.c fractal_init.c fractal_render.c \
-       handle_errors.c main.c fractal_logic.c fractal_utils.c ft_utils.c  ft_atoi_utils.c \
+	main.c fractal_logic.c fractal_utils.c ft_utils.c  ft_atoi_utils.c
 OBJS = $(SRCS:.c=.o)
 
 COLOR_RESET = \033[0m
