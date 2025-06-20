@@ -16,7 +16,7 @@ void	paint_pixel(int x, int y, t_img *img, int color)
 {
 	int	offset;
 
-	offset = (y * img->line_len) + (x * (img->bpp / 8));
+	offset = (y * img->line_len) + (x * (img->px_bits / 8));
 	*(unsigned int *)(img->pixels_ptr + offset) = color;
 }
 

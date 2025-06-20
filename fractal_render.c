@@ -69,7 +69,7 @@ void	fractal_render(t_fractal *f)
 		mlx_destroy_image(f->mlx_connection, f->img.img_ptr);
 	f->img.img_ptr = mlx_new_image(f->mlx_connection, WIDTH, HEIGHT);
 	f->img.pixels_ptr = mlx_get_data_addr(f->img.img_ptr,
-			&f->img.bpp, &f->img.line_len, &f->img.endian);
+			&f->img.px_bits, &f->img.line_len, &f->img.byte_order);
 	y = -1;
 	while (++y < HEIGHT)
 	{

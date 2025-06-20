@@ -45,8 +45,8 @@ typedef struct s_img
 {
 	void	*img_ptr;
 	char	*pixels_ptr;
-	int		bpp;
-	int		endian;
+	int		px_bits;
+	int		byte_order;
 	int		line_len;
 }	t_img;
 

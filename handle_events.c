@@ -75,18 +75,18 @@ static void	update_zoom_and_iterations(int button, t_fractal *fractal)
 int	mouse_handler(int button, int x, int y, t_fractal *fractal)
 {
 	double	old_zoom;
-	double	mouse_re_before_zoom;
-	double	mouse_im_before_zoom;
+	double	old_mouse_im;
+	double	old_mouse_re;
 
 	old_zoom = fractal->zoom;
-	mouse_re_before_zoom = (rescale(x, -2.0, 2.0, WIDTH) * old_zoom) \
+	old_mouse_im = (rescale(x, -2.0, 2.0, WIDTH) * old_zoom) \
 + fractal->offset_x;
-	mouse_im_before_zoom = (rescale(y, 2.0, -2.0, HEIGHT) * old_zoom) \
+	old_mouse_re = (rescale(y, 2.0, -2.0, HEIGHT) * old_zoom) \
 + fractal->offset_y;
 	update_zoom_and_iterations(button, fractal);
-	fractal->offset_x = mouse_re_before_zoom - \
+	fractal->offset_x = old_mouse_im - \
 (rescale(x, -2.0, 2.0, WIDTH) * fractal->zoom);
-	fractal->offset_y = mouse_im_before_zoom - \
+	fractal->offset_y = old_mouse_re - \
 (rescale(y, 2.0, -2.0, HEIGHT) * fractal->zoom);
 	fractal_render(fractal);
 	return (0);
